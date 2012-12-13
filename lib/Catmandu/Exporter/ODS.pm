@@ -7,6 +7,8 @@ use Archive::Zip;
 
 with 'Catmandu::Exporter';
 
+our $VERSION = '0.02';
+
 has ods       => ( is => 'ro', lazy => 1, builder => '_build_ods' );
 has header    => ( is => 'ro', default => sub { 1 } );
 has temp_file => ( is => 'ro', lazy => 1, builder => '_build_temp_file' );
