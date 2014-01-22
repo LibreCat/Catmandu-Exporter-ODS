@@ -1,5 +1,6 @@
 package Catmandu::Exporter::ODS;
 
+use namespace::clean;
 use Catmandu::Sane;
 use Moo;
 use Spreadsheet::Wright;
@@ -7,7 +8,7 @@ use Archive::Zip;
 
 with 'Catmandu::Exporter';
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 has ods       => ( is => 'ro', lazy => 1, builder => '_build_ods' );
 has header    => ( is => 'ro', default => sub { 1 } );
@@ -18,11 +19,9 @@ has fields => (
     is     => 'rw',
     coerce => sub {
         my $fields = $_[0];
-        given ( ref $fields ) {
-            when ('ARRAY') { return $fields }
-            when ('HASH') { return [ keys %$fields ] }
-            default { return [ split ',', $fields ] }
-        }
+        return $fields if ref $fields eq 'ARRAY';
+        return [ keys %$fields ] if ref $fields eq 'HASH';
+        return [ split ',', $fields ]
     },
 );
 
@@ -122,15 +121,19 @@ Set the fields by a comma delimited string.
 
 =head2 header(1)
 
-Include a header line with the field names
+Include a header line with the field names.
 
 =head2 header($hashref)
 
-Include a header line with custom field names
+Include a header line with custom field names.
 
 =head2 commit
 
 Commit the changes and close the ODS.
+
+=head1 AUTHOR
+
+Snorri Briem, C<< <snorri.briem@ub.lu.se> >>
 
 =head1 SEE ALSO
 

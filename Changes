@@ -1,8 +1,9 @@
 Revision history for Catmandu-Exporter-ODS
 
+0.03    2014-01-22
+  - Minor corrections to documentation
+  - Got rid of experimental given/when statements
 0.02    2012-12-13
   - Added version
-
 0.01    2012-12-13
   - Initial release
-
